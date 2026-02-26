@@ -1,0 +1,17 @@
+{
+  "name": "tech-daily",
+  "version": "1.0.0",
+  "description": "每日自动生成全球科技新闻汇总",
+  "main": "src/generate.js",
+  "scripts": {
+    "generate": "node src/generate.js",
+    "deploy": "npm run generate && git add . && git commit -m 'Daily update' && git push"
+  },
+  "keywords": ["tech", "news", "daily", "automation"],
+  "author": "David LI",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^3.3.0",
+    "cheerio": "^1.0.0-rc.12"
+  }
+}

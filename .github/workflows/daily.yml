@@ -3,6 +3,7 @@ name: Daily Tech News
 on:
   schedule:
     - cron: '0 23 * * *'  # 每天 23:00 UTC = 北京时间 7:00
+    - cron: '0 11 * * *'  # 每天 11:00 UTC = 北京时间 19:00
   workflow_dispatch:  # 允许手动触发
 
 jobs:
@@ -27,10 +28,11 @@ jobs:
       - name: Install dependencies
         run: npm install
       
-      - name: Generate daily report
+      - name: Generate daily report (24h news only)
         run: node src/generate.js
         env:
           TZ: Asia/Shanghai
+          NEWS_TIMEFRAME_HOURS: 24
       
       - name: Send email
         run: python3 src/send_email.py output/index.html
@@ -46,7 +48,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add .
-          git diff --staged --quiet || git commit -m "Daily: $(date +\%Y-\%m-\%d)"
+          git diff --staged --quiet || git commit -m "Daily: $(date +\%Y-\%m-\%d %H:%M)"
           git push https://${{ secrets.GH_PAT }}@github.com/davidlizhiwei/tech-daily.git HEAD:main
         env:
           TZ: Asia/Shanghai

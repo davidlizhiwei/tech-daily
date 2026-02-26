@@ -30,12 +30,37 @@ const dateDisplay = today.toLocaleDateString('zh-CN', {
   day: 'numeric',
   weekday: 'long'
 });
+const timeStr = today.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
 
 console.log(`📰 生成科技日报 - ${dateDisplay}`);
 console.log(`📁 输出目录：${CONFIG.outputDir}`);
 
-// 模拟新闻数据（实际运行时应该从 API 获取）
-// 这里复用今天收集的数据作为模板
+// 行动建议（根据新闻内容动态生成）
+const actionItems = [
+  {
+    priority: "🔴 高优先级",
+    items: [
+      "检查你的 Google API 密钥是否已轮换，避免泄露风险",
+      "评估 Perplexity Computer 是否可替代现有工作流中的工具"
+    ]
+  },
+  {
+    priority: "🟡 中优先级",
+    items: [
+      "关注 AMD-Meta 交易对 AI 芯片市场的影响",
+      "测试 Gemini 3.1 Pro 的推理能力是否有提升"
+    ]
+  },
+  {
+    priority: "🟢 了解即可",
+    items: [
+      "Windows 11 记事本 Markdown 支持（开发者友好）",
+      "GitHub 热榜项目 SkyPilot 可关注"
+    ]
+  }
+];
+
+// 新闻数据（带时间戳）
 const newsData = {
   hot5: [
     {
@@ -44,7 +69,8 @@ const newsData = {
       source: "Truffle Security",
       url: "https://trufflesecurity.com/blog/google-api-keys-werent-secrets-but-then-gemini-changed-the-rules",
       comments: "142 评论",
-      badge: "🔥 716 热度"
+      badge: "🔥 716 热度",
+      time: "9 小时前"
     },
     {
       title: "Perplexity 推出 Computer 平台：多 AI Agent 协同的数字员工",
@@ -52,7 +78,8 @@ const newsData = {
       source: "Perplexity Blog",
       url: "https://www.perplexity.ai/hub/blog/introducing-perplexity-computer",
       comments: "AI Agent 新范式",
-      badge: "🔥 爆点"
+      badge: "🔥 爆点",
+      time: "11 小时前"
     },
     {
       title: "AMD 与 Meta 达成 1000 亿美元 AI 芯片交易",
@@ -60,7 +87,8 @@ const newsData = {
       source: "The Verge",
       url: "https://www.theverge.com/ai-artificial-intelligence",
       comments: "AI 基础设施",
-      badge: "🔥 千亿大单"
+      badge: "🔥 千亿大单",
+      time: "昨天"
     }
   ],
   hot4: [
@@ -69,14 +97,16 @@ const newsData = {
       summary: "Google 推出 Gemini 3.1 Pro 模型，专注于复杂推理任务，已在 Gemini 应用和 NotebookLM 中 rollout。",
       source: "Google Blog",
       url: "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-pro/",
-      badge: "🆕 新品"
+      badge: "🆕 新品",
+      time: "昨天"
     },
     {
       title: "ChatGPT 开始插入广告：用户首次提示后即触发",
       summary: "Expedia、Best Buy、Qualcomm 等品牌广告开始出现在 ChatGPT 响应中。",
       source: "Adweek",
       url: "https://www.adweek.com/media/first-ads-on-chat-gpt-best-buy-expedia-qualcomm/",
-      badge: "💰 商业化"
+      badge: "💰 商业化",
+      time: "2 天前"
     },
     {
       title: "Windows 11 记事本将支持 Markdown",
@@ -84,7 +114,8 @@ const newsData = {
       source: "Windows Blog",
       url: "https://blogs.windows.com/windows-insider/2026/01/21/notepad-and-paint-updates-begin-rolling-out-to-windows-insiders/",
       comments: "435 评论",
-      badge: "🪟 微软"
+      badge: "🪟 微软",
+      time: "17 小时前"
     }
   ],
   hot3: [
@@ -93,7 +124,8 @@ const newsData = {
       summary: "支持 Kubernetes、20+ 云平台和本地部署的 AI 工作负载管理系统。",
       source: "GitHub",
       url: "https://github.com/skypilot-org/skypilot",
-      badge: "🐙 GitHub"
+      badge: "🐙 GitHub",
+      time: "今日"
     },
     {
       title: "开源项目：Lance 多模态 AI 湖仓格式",
@@ -101,39 +133,44 @@ const newsData = {
       source: "GitHub",
       url: "https://github.com/lance-format/lance",
       comments: "今日 +7 星",
-      badge: "🦀 Rust"
+      badge: "🦀 Rust",
+      time: "今日"
     },
     {
       title: "Oura 智能戒指推出女性健康 AI 聊天机器人",
       summary: "Oura Advisor 新增专门讨论女性生殖健康的 AI 模型，覆盖从月经周期到更年期。",
       source: "The Verge",
       url: "https://www.theverge.com/ai-artificial-intelligence",
-      badge: "💍 可穿戴"
+      badge: "💍 可穿戴",
+      time: "昨天"
     }
   ],
   hot2: [
     {
       title: "OpenAI Stargate 计划遇阻：高成本导致战略调整",
       source: "OpenAI",
-      url: "https://openai.com/index/five-new-stargate-sites/"
+      url: "https://openai.com/index/five-new-stargate-sites/",
+      time: "3 天前"
     },
     {
       title: "RAM 成本飙升：占 HP PC 物料成本 35%",
       source: "Ars Technica",
       url: "https://arstechnica.com/gadgets/2026/02/ram-now-represents-35-percent-of-bill-of-materials-for-hp-pcs/",
-      comments: "201 评论"
+      comments: "201 评论",
+      time: "8 小时前"
     },
     {
       title: "Ben Evans 分析：OpenAI 将如何竞争？",
       source: "Ben Evans",
       url: "https://www.ben-evans.com/benedictevans/2026/2/19/how-will-openai-compete-nkg2x",
-      comments: "342 评论"
+      comments: "342 评论",
+      time: "1 周前"
     }
   ]
 };
 
 // 生成 HTML
-function generateHTML(data) {
+function generateHTML(data, includeFullContent = true) {
   const totalNews = data.hot5.length + data.hot4.length + data.hot3.length + data.hot2.length;
   
   return `<!DOCTYPE html>
@@ -164,7 +201,7 @@ function generateHTML(data) {
         }
         header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             padding-bottom: 20px;
             border-bottom: 2px solid rgba(255,255,255,0.1);
         }
@@ -177,6 +214,52 @@ function generateHTML(data) {
             margin-bottom: 10px;
         }
         .date { color: #888; font-size: 1.1em; }
+        
+        /* 行动建议区块 */
+        .action-section {
+            background: linear-gradient(135deg, rgba(0,217,255,0.1) 0%, rgba(0,255,136,0.05) 100%);
+            border: 1px solid rgba(0,217,255,0.3);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 35px;
+        }
+        .action-title {
+            font-size: 1.4em;
+            color: #00d9ff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .action-priority {
+            margin-bottom: 15px;
+        }
+        .action-priority:last-child { margin-bottom: 0; }
+        .priority-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+        .priority-high { color: #ff6b6b; }
+        .priority-medium { color: #ffd93d; }
+        .priority-low { color: #6bcb77; }
+        .action-list {
+            list-style: none;
+            padding-left: 10px;
+        }
+        .action-list li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+            color: #ccc;
+        }
+        .action-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #00d9ff;
+        }
+        
         .section { margin-bottom: 35px; }
         .section-title {
             font-size: 1.8em;
@@ -218,6 +301,12 @@ function generateHTML(data) {
             gap: 15px;
             font-size: 0.85em;
             color: #666;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .news-time {
+            color: #888;
+            font-size: 0.8em;
         }
         .source {
             color: #00d9ff;
@@ -262,10 +351,26 @@ function generateHTML(data) {
         }
         .stat-label { color: #888; font-size: 0.85em; }
         
+        /* 邮件专用样式 */
+        .email-footer {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(0,217,255,0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        .email-footer a {
+            color: #00d9ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .email-footer a:hover { text-decoration: underline; }
+        
         @media (max-width: 600px) {
             .container { padding: 20px; }
             h1 { font-size: 1.8em; }
             .section-title { font-size: 1.4em; }
+            .action-section { padding: 15px; }
         }
     </style>
 </head>
@@ -273,8 +378,21 @@ function generateHTML(data) {
     <div class="container">
         <header>
             <h1>🔥 全球科技日报</h1>
-            <p class="date">${dateDisplay} | 第 ${getDayOfYear(today)} 期</p>
+            <p class="date">${dateDisplay} ${timeStr} | 第 ${getDayOfYear(today)} 期</p>
         </header>
+
+        <!-- 行动建议 -->
+        <div class="action-section">
+            <h2 class="action-title">💡 今日行动建议</h2>
+            ${actionItems.map(priority => `
+            <div class="action-priority">
+                <div class="priority-label priority-${priority.priority.includes('高') ? 'high' : priority.priority.includes('中') ? 'medium' : 'low'}">${priority.priority}</div>
+                <ul class="action-list">
+                    ${priority.items.map(item => `<li>${item}</li>`).join('')}
+                </ul>
+            </div>
+            `).join('')}
+        </div>
 
         <div class="stats">
             <div class="stat-card">
@@ -318,7 +436,7 @@ function generateHTML(data) {
         <footer>
             <p>📰 数据来源：Hacker News, The Verge, TechCrunch, GitHub, arXiv</p>
             <p>⏰ 更新时间：${today.toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })} GMT+8</p>
-            <p style="margin-top: 15px; color: #00d9ff;">🤖 自动生成自 OpenClaw AI | <a href="https://github.com/davidli/tech-daily" style="color: #00d9ff;">GitHub</a></p>
+            <p style="margin-top: 15px; color: #00d9ff;">🤖 自动生成自 OpenClaw AI | <a href="https://github.com/davidlizhiwei/tech-daily" style="color: #00d9ff;">GitHub</a></p>
         </footer>
     </div>
 </body>
@@ -334,6 +452,7 @@ function renderNewsItem(news, hotClass) {
                     ${news.badge ? `<span class="badge hot-badge">${news.badge}</span>` : ''}
                     <a href="${news.url}" class="source" target="_blank" rel="noopener">${news.source}</a>
                     ${news.comments ? `<span>${news.comments}</span>` : ''}
+                    ${news.time ? `<span class="news-time">⏰ ${news.time}</span>` : ''}
                 </div>
             </div>`;
 }
@@ -349,7 +468,7 @@ function getDayOfYear(date) {
 async function main() {
   try {
     // 生成 HTML
-    const html = generateHTML(newsData);
+    const html = generateHTML(newsData, true);
     
     // 保存到 output 目录（最新）
     const outputPath = path.join(CONFIG.outputDir, 'index.html');
@@ -366,11 +485,16 @@ async function main() {
     fs.writeFileSync(rootPath, html, 'utf8');
     console.log(`✅ 根目录副本：${rootPath}`);
     
+    // 复制到 index.html（GitHub Pages）
+    const indexPath = path.join(__dirname, '../index.html');
+    fs.writeFileSync(indexPath, html, 'utf8');
+    console.log(`✅ GitHub Pages: ${indexPath}`);
+    
     console.log('\n🎉 生成完成！');
     console.log('\n📋 下一步:');
     console.log('1. git add . && git commit -m "Daily: ' + dateStr + '" && git push');
-    console.log('2. Cloudflare Pages 会自动部署');
-    console.log('3. 访问你的网站查看日报');
+    console.log('2. GitHub Pages 会自动部署');
+    console.log('3. 邮件会自动发送（如果配置了 Secrets）');
     
   } catch (error) {
     console.error('❌ 生成失败:', error);

@@ -18,6 +18,11 @@ jobs:
         with:
           node-version: '20'
       
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
       - name: Install dependencies
         run: npm install
       
@@ -25,6 +30,15 @@ jobs:
         run: node src/generate.js
         env:
           TZ: Asia/Shanghai
+      
+      - name: Send email
+        run: python3 src/send_email.py output/index.html
+        env:
+          TZ: Asia/Shanghai
+          EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_RECIPIENT: ${{ secrets.EMAIL_RECIPIENT }}
+        continue-on-error: true
       
       - name: Commit and push
         run: |

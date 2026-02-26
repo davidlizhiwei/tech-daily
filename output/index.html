@@ -39,6 +39,15 @@
             margin-bottom: 10px;
         }
         .date { color: #888; font-size: 1.1em; }
+        .time-range { 
+            color: #00d9ff; 
+            font-size: 0.9em; 
+            margin-top: 8px;
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(0,217,255,0.1);
+            border-radius: 12px;
+        }
         
         /* 行动建议区块 */
         .action-section {
@@ -132,6 +141,9 @@
         .news-time {
             color: #888;
             font-size: 0.8em;
+            background: rgba(255,255,255,0.05);
+            padding: 2px 8px;
+            border-radius: 10px;
         }
         .source {
             color: #00d9ff;
@@ -191,6 +203,13 @@
         }
         .email-footer a:hover { text-decoration: underline; }
         
+        /* 无新闻提示 */
+        .no-news {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
+        
         @media (max-width: 600px) {
             .container { padding: 20px; }
             h1 { font-size: 1.8em; }
@@ -203,7 +222,8 @@
     <div class="container">
         <header>
             <h1>🔥 全球科技日报</h1>
-            <p class="date">2026年2月26日星期四 19:44 | 第 57 期</p>
+            <p class="date">2026年2月26日星期四 19:48</p>
+            <p class="time-range">📰 仅显示 24 小时内新闻</p>
         </header>
 
         <!-- 行动建议 -->
@@ -213,21 +233,21 @@
             <div class="action-priority">
                 <div class="priority-label priority-high">🔴 高优先级</div>
                 <ul class="action-list">
-                    <li>检查你的 Google API 密钥是否已轮换，避免泄露风险</li><li>评估 Perplexity Computer 是否可替代现有工作流中的工具</li>
+                    <li>检查相关安全配置，避免潜在风险</li><li>评估 Perplexity Blog 新品是否可整合到工作流</li>
                 </ul>
             </div>
             
             <div class="action-priority">
                 <div class="priority-label priority-medium">🟡 中优先级</div>
                 <ul class="action-list">
-                    <li>关注 AMD-Meta 交易对 AI 芯片市场的影响</li><li>测试 Gemini 3.1 Pro 的推理能力是否有提升</li>
+                    <li>关注：Gemini 3.1 Pro 发布</li><li>关注：ChatGPT 开始插入广告</li><li>关注：Windows 11 记事本将支持 Markdown</li>
                 </ul>
             </div>
             
             <div class="action-priority">
                 <div class="priority-label priority-low">🟢 了解即可</div>
                 <ul class="action-list">
-                    <li>Windows 11 记事本 Markdown 支持（开发者友好）</li><li>GitHub 热榜项目 SkyPilot 可关注</li>
+                    <li>GitHub 热榜</li><li>开源项目</li><li>RAM 成本飙升</li>
                 </ul>
             </div>
             
@@ -235,23 +255,25 @@
 
         <div class="stats">
             <div class="stat-card">
-                <div class="stat-number">12</div>
-                <div class="stat-label">今日新闻</div>
+                <div class="stat-number">9</div>
+                <div class="stat-label">24h 新闻</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number">6</div>
                 <div class="stat-label">AI 热点</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">57</div>
-                <div class="stat-label">2026 年第 X 期</div>
+                <div class="stat-number">2</div>
+                <div class="stat-label">开源项目</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">5</div>
-                <div class="stat-label">信息来源</div>
+                <div class="stat-number">1</div>
+                <div class="stat-label">其他</div>
             </div>
         </div>
 
+        
+        
         <div class="section">
             <h2 class="section-title">⭐⭐⭐⭐⭐ 今日最热</h2>
             
@@ -262,7 +284,7 @@
                     <span class="badge hot-badge">🔥 716 热度</span>
                     <a href="https://trufflesecurity.com/blog/google-api-keys-werent-secrets-but-then-gemini-changed-the-rules" class="source" target="_blank" rel="noopener">Truffle Security</a>
                     <span>142 评论</span>
-                    <span class="news-time">⏰ 9 小时前</span>
+                    <span class="news-time">⏰ 9小时前</span>
                 </div>
             </div>
             <div class="news-item hot-5">
@@ -272,7 +294,7 @@
                     <span class="badge hot-badge">🔥 爆点</span>
                     <a href="https://www.perplexity.ai/hub/blog/introducing-perplexity-computer" class="source" target="_blank" rel="noopener">Perplexity Blog</a>
                     <span>AI Agent 新范式</span>
-                    <span class="news-time">⏰ 11 小时前</span>
+                    <span class="news-time">⏰ 11小时前</span>
                 </div>
             </div>
             <div class="news-item hot-5">
@@ -282,11 +304,13 @@
                     <span class="badge hot-badge">🔥 千亿大单</span>
                     <a href="https://www.theverge.com/ai-artificial-intelligence" class="source" target="_blank" rel="noopener">The Verge</a>
                     <span>AI 基础设施</span>
-                    <span class="news-time">⏰ 昨天</span>
+                    <span class="news-time">⏰ 18小时前</span>
                 </div>
             </div>
         </div>
+        
 
+        
         <div class="section">
             <h2 class="section-title">⭐⭐⭐⭐ 高热度</h2>
             
@@ -297,7 +321,7 @@
                     <span class="badge hot-badge">🆕 新品</span>
                     <a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-1-pro/" class="source" target="_blank" rel="noopener">Google Blog</a>
                     
-                    <span class="news-time">⏰ 昨天</span>
+                    <span class="news-time">⏰ 20小时前</span>
                 </div>
             </div>
             <div class="news-item hot-4">
@@ -307,7 +331,7 @@
                     <span class="badge hot-badge">💰 商业化</span>
                     <a href="https://www.adweek.com/media/first-ads-on-chat-gpt-best-buy-expedia-qualcomm/" class="source" target="_blank" rel="noopener">Adweek</a>
                     
-                    <span class="news-time">⏰ 2 天前</span>
+                    <span class="news-time">⏰ 2小时前</span>
                 </div>
             </div>
             <div class="news-item hot-4">
@@ -317,11 +341,13 @@
                     <span class="badge hot-badge">🪟 微软</span>
                     <a href="https://blogs.windows.com/windows-insider/2026/01/21/notepad-and-paint-updates-begin-rolling-out-to-windows-insiders/" class="source" target="_blank" rel="noopener">Windows Blog</a>
                     <span>435 评论</span>
-                    <span class="news-time">⏰ 17 小时前</span>
+                    <span class="news-time">⏰ 17小时前</span>
                 </div>
             </div>
         </div>
+        
 
+        
         <div class="section">
             <h2 class="section-title">⭐⭐⭐ 值得关注</h2>
             
@@ -332,7 +358,7 @@
                     <span class="badge hot-badge">🐙 GitHub</span>
                     <a href="https://github.com/skypilot-org/skypilot" class="source" target="_blank" rel="noopener">GitHub</a>
                     
-                    <span class="news-time">⏰ 今日</span>
+                    <span class="news-time">⏰ 5小时前</span>
                 </div>
             </div>
             <div class="news-item hot-3">
@@ -342,34 +368,16 @@
                     <span class="badge hot-badge">🦀 Rust</span>
                     <a href="https://github.com/lance-format/lance" class="source" target="_blank" rel="noopener">GitHub</a>
                     <span>今日 +7 星</span>
-                    <span class="news-time">⏰ 今日</span>
-                </div>
-            </div>
-            <div class="news-item hot-3">
-                <div class="news-title">Oura 智能戒指推出女性健康 AI 聊天机器人</div>
-                <div class="news-summary">Oura Advisor 新增专门讨论女性生殖健康的 AI 模型，覆盖从月经周期到更年期。</div>
-                <div class="news-meta">
-                    <span class="badge hot-badge">💍 可穿戴</span>
-                    <a href="https://www.theverge.com/ai-artificial-intelligence" class="source" target="_blank" rel="noopener">The Verge</a>
-                    
-                    <span class="news-time">⏰ 昨天</span>
+                    <span class="news-time">⏰ 3小时前</span>
                 </div>
             </div>
         </div>
+        
 
+        
         <div class="section">
             <h2 class="section-title">📊 其他热点</h2>
             
-            <div class="news-item hot-2">
-                <div class="news-title">OpenAI Stargate 计划遇阻：高成本导致战略调整</div>
-                
-                <div class="news-meta">
-                    
-                    <a href="https://openai.com/index/five-new-stargate-sites/" class="source" target="_blank" rel="noopener">OpenAI</a>
-                    
-                    <span class="news-time">⏰ 3 天前</span>
-                </div>
-            </div>
             <div class="news-item hot-2">
                 <div class="news-title">RAM 成本飙升：占 HP PC 物料成本 35%</div>
                 
@@ -377,24 +385,16 @@
                     
                     <a href="https://arstechnica.com/gadgets/2026/02/ram-now-represents-35-percent-of-bill-of-materials-for-hp-pcs/" class="source" target="_blank" rel="noopener">Ars Technica</a>
                     <span>201 评论</span>
-                    <span class="news-time">⏰ 8 小时前</span>
-                </div>
-            </div>
-            <div class="news-item hot-2">
-                <div class="news-title">Ben Evans 分析：OpenAI 将如何竞争？</div>
-                
-                <div class="news-meta">
-                    
-                    <a href="https://www.ben-evans.com/benedictevans/2026/2/19/how-will-openai-compete-nkg2x" class="source" target="_blank" rel="noopener">Ben Evans</a>
-                    <span>342 评论</span>
-                    <span class="news-time">⏰ 1 周前</span>
+                    <span class="news-time">⏰ 8小时前</span>
                 </div>
             </div>
         </div>
+        
+        
 
         <footer>
             <p>📰 数据来源：Hacker News, The Verge, TechCrunch, GitHub, arXiv</p>
-            <p>⏰ 更新时间：2026/2/26 19:44:32 GMT+8</p>
+            <p>⏰ 更新时间：2026/2/26 19:48:58 GMT+8</p>
             <p style="margin-top: 15px; color: #00d9ff;">🤖 自动生成自 OpenClaw AI | <a href="https://github.com/davidlizhiwei/tech-daily" style="color: #00d9ff;">GitHub</a></p>
         </footer>
     </div>
